@@ -68,7 +68,8 @@ button {
   color: #000000;
   border: none;
   cursor: pointer;
-  border-radius: 50px;
+  corner-shape: squircle;
+  border-radius: 40px;
   margin-bottom: 30px;
   transition: all 0.3s ease-in-out;
 }
@@ -79,16 +80,11 @@ button:hover {
 
 ul#jokeList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
   gap: 1em;
   padding: 20px;
   margin-bottom: 30px;
-}
-
-li.joke-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .joke-list span {
@@ -98,6 +94,11 @@ li.joke-list {
 }
 
 li.joke-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
   background: #9E9E9E;
+  corner-shape: squircle;
+border-radius: 40px;
 }
