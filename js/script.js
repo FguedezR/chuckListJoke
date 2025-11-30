@@ -41,29 +41,31 @@ function renderJokes() {
         jokeList.appendChild(listItem);
     });
 
-    function fetchNewJoke() {
-        fetch(api_url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error en la API: ${response.status}`);
-            }
-            return response.json()
-        })
-        .then(data => {
-            const newJoke = {
-                id: data.id || Date.now(),
-                text: data.value,
-            }
-            jokes.unshift(newJoke)
-            saveJokesToStorage();
-            renderJokes();
-        })
-        .catch(error => {
-            console.error('Error al obtener el chiste', error);
-            alert('No se pudo obtener el chiste. Revisa la consola')
-        });
-    }
 }
+
+function fetchNewJoke() {
+  fetch(api_url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error en la API: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const newJoke = {
+        id: data.id || Date.now(),
+        text: data.value,
+      };
+      jokes.unshift(newJoke);
+      saveJokesToStorage();
+      renderJokes();
+    })
+    .catch((error) => {
+      console.error("Error al obtener el chiste", error);
+      alert("No se pudo obtener el chiste. Revisa la consola");
+    });
+}
+fetchNewJoke();
 
 function deleteJoke(id) {
   jokes = jokes.filter((joke) => joke.id !== id);
