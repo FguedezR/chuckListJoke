@@ -31,14 +31,14 @@ function renderJokes() {
         return;
     };
 
-    jokes.forEach(joke => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('joke-list');
-        listItem.innerHTML = `
+    jokes.forEach((joke) => {
+      const listItem = document.createElement("li");
+      listItem.classList.add("joke-list");
+      listItem.innerHTML = `
             <span>${joke.text}</span>
             <button class="delete-joke-btn" data-id="${joke.id}">Eliminar</button>
         `;
-        jokeList.appendChild(listItem);
+      jokeList.appendChild(listItem);
     });
 
 }
@@ -74,23 +74,26 @@ function deleteJoke(id) {
 }
 
 function init() {
-    loadJokesFromStorage();
+  loadJokesFromStorage();
+  renderJokes();
+
+  // Asignamos el listener. Ahora fetchNewJoke es accesible.
+  fetchJoke.addEventListener('click', fetchNewJoke);
+
+  // Listener para eliminar todos
+  clearAllButton.addEventListener("click", () => {
+    jokes = [];
+    localStorage.removeItem(storage_key);
     renderJokes();
+  });
 
-    fetchButton.addEventListener('click', fetchNewJoke);
-    
-    // listener para eliminar 
-    clearAllButton.addEventListener('click', () => {
-        jokes = [];
-        localStorage.removeItem(storage_key);
-        renderJokes();
-    })
-
-    jokeList.addEventListener('click', (event) => {
-        if (event.target.classList.contains('delete-joke-btn')) {
-            const jokeId = event.target.dataset.id;
-            deleteJoke(jokeId)
-        }
-    })
+  // eventos para la eliminación individual
+  jokeList.addEventListener("click", (event) => {
+    if (event.target.classList.contains("delete-joke-btn")) {
+      const jokeId = event.target.dataset.id;
+      deleteJoke(jokeId);
+    }
+  });
 }
-init()
+
+init();
